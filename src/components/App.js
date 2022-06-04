@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect, useHistory, Switch } from 'react-router-dom';
-import * as auth from '../auth';
+import * as auth from '../utils/auth';
 import Header from './Header';
 import Main from './Main';
 import Login from './Login';
@@ -108,18 +108,20 @@ function App() {
   }, [loggedIn, history]);
 
   React.useEffect(() => {
-    api.getProfile()
-      .then(res =>
-        setCurrentUser(res)
-      )
-    api.getInitialCards()
-      .then((card) => {
-        setCards(card)
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [])
+    if (loggedIn) {
+      api.getProfile()
+        .then(res =>
+          setCurrentUser(res)
+        )
+      api.getInitialCards()
+        .then((card) => {
+          setCards(card)
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn])
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)

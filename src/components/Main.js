@@ -17,13 +17,13 @@ function Main(props) {
         <button className="profile__add-button" onClick={props.onAddPlace} type="button" aria-label="добавить место" />
       </section>
       <section className="places">
-        {props.cards.map(card => <Card
+        {props.cards.map(card => ( <Card
           card={card}
           key={card._id}
           onCardLike={props.handleCardLike}
           onCardClick={props.onCardClick}
           onCardDelete={props.handleCardDelete}
-        />)}
+        />))}
       </section>
     </main>
   )
